@@ -1,0 +1,48 @@
+{% extends 'base/web-base.html' %}
+
+{% load static %}
+
+{% block container %}
+
+<section class="grid grid-cols-1 md:grid-cols-2 gap-5 h-screen">
+    <!-- Left image section -->
+    <div class="col-span-1 hidden md:flex"> 
+        <img src="{% static 'web/images/rest2.png' %}" alt="image" class="w-full">
+    </div>
+
+    <!-- Right form section -->
+    <div class="col-span-1 h-screen flex justify-center items-center">
+        <div class="text-center">
+            <h1 class="text-[35px] font-semibold mb-5">SIGN UP NOW</h1>
+            <p class="w-[90%] md:w-[70%] m-auto mb-5">Lorem ipsum dolor sit amet consectetur.</p>
+            
+            <form action="" method="post" class="w-[90%] md:w-[70%] m-auto">
+                {% csrf_token %}
+                
+                <!-- First Name Input -->
+                <input type="text" name="first_name" placeholder="Enter First name" class="w-full outline-none border rounded-2xl py-3 px-5 mb-5">
+
+                <!-- Last Name Input -->
+                <input type="text" name="last_name" placeholder="Enter Last name" class="w-full outline-none border rounded-2xl py-3 px-5 mb-5">
+
+                <!-- Email Input -->
+                <input type="email" name="email" placeholder="Enter your email" class="w-full outline-none border rounded-2xl py-3 px-5 mb-5">
+
+                <!-- Password Input -->
+                <input type="password" name="password" placeholder="Enter your Password" class="w-full outline-none border rounded-2xl py-3 px-5 mb-5">
+
+                <!-- Submit Button -->
+                <button type="submit" class="py-3 px-5 bg-red-500 text-white text-[14px] font-semibold rounded-xl">Sign Up</button>
+            </form>
+
+            <!-- Error message block -->
+            {% if error %}
+                <p class="mt-5 text-[14px] text-rose-500">{{ message }}</p>
+            {% endif %}
+            
+            <p class="text-[14px] mt-5">Already have an account? <a href="{% url 'web:login' %}" class="text-red-500">Login</a></p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

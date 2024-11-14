@@ -1,0 +1,134 @@
+
+{% extends 'base/web-base.html' %}
+
+{% load static %}
+
+{% block container %}
+<!-- {% include 'includes/header.html' %} -->
+
+
+    <header class="h-[80px] flex sm:flex-row justify-between px-[20px] items-center">
+        <img src="{% static '/web/images/logo.png' %}" alt="logo" class="h-[80%] mb-2 sm:mb-0">
+        <div class="mt-2 hidden md:flex sm:mt-0">
+            <ul class="h-[80px] flex items-center flex-wrap">
+                <li class="mr-[15px] h-[20%] flex mb-2 sm:mb-0">
+                    <img src="{% static '/web/images/home.png' %}" alt="home" class="h-[100%] mr-[5px] mt-[4px]">
+                    <a href="#">Home</a>
+                </li>
+                <li class="mr-[15px] h-[20%] flex mb-2 sm:mb-0">
+                    <img src="{% static '/web/images/search.png' %}" alt="search" class="h-[100%] mr-[5px] mt-[4px]">
+                    <a href="#">Search</a>
+                </li>
+                <li class="mr-[15px] h-[20%] flex mb-2 sm:mb-0">
+                    <img src="{% static '/web/images/bag.png' %}" alt="home" class="h-[100%] mr-[5px] mt-[4px]">
+                    <a href="#">Cart</a>
+                </li>
+                <li class="mr-[15px] h-[20%] flex mb-2 sm:mb-0">
+                    <img src="{% static '/web/images/user.png' %}" alt="home" class="h-[100%] mr-[5px] mt-[4px]">
+                    <a href="#">Account</a>
+                </li>
+            </ul>
+        </div>
+        <div class="h-[30%] hidden sm:flex">
+            <img src="{% static '/web/images/map.png' %}" alt="map" class="h-[70%] mr-[5px] mt-[4px]">
+            <h3 class="h-[100%] border-b-[2px] border-yellow-500">Tirur, Malappuram</h3>
+        </div>
+        <div class="md:hidden">
+            <i id="mobile-menu" class='bx bx-menu-alt-right text-[25px] font-[500] mt-[4px]'></i>
+        </div>
+    </header>
+
+    <div class="flex justify-end">
+        <div id="mobile-drop" class="hidden px-[20px] w-[150px]">
+            <ul class="">
+                <li class="flex">
+                    <img src="{% static '/web/images/home.png' %}" alt="home" class="h-[20px] mr-[10px]">
+                    <a href="#" class="text-black text-[16px] font-[700]">Home</a>
+                </li>
+                <li class="flex">
+                    <img src="{% static '/web/images/search.png' %}" alt="search" class="h-[20px] mr-[10px]">
+                    <a href="#" class="text-black text-[16px] font-[700]">Search</a>
+                </li>
+                <li class="flex">
+                    <img src="{% static '/web/images/bag.png' %}" alt="home" class="h-[20px] mr-[10px]">
+                    <a href="#" class="text-black text-[16px] font-[700]">Cart</a>
+                </li>
+                <li class="flex">
+                    <img src="{% static '/web/images/user.png' %}" alt="home" class="h-[20px] mr-[10px]">
+                    <a href="#" class="text-black text-[16px] font-[700]">Account</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <section class="px-[15px]">
+        <div class="shadow-md offset-y-2 opacity-90 flex max-w-[620px] h-[150px] sm:h-[200px] p-[20px] border-[1px] rounded-[5px] m-auto mt-[30px] mb-[50px]">
+            <img src="{% static '/web/images/rest1.png' %}" alt="rest" class="h-[100%] rounded-[5px] mr-[15px]">
+            <div class="mt-[-8px]">
+                <h1 class="text-[16px] sm:text-[22px] font-[600] mb-[5px]">{{store.name}}</h1>
+                <h3 class="mb-[5px]">{{store.short_discription}}</h3>
+                <ul class="flex mb-[5px]">
+                    <li class="flex mr-[15px] items-center">
+                        <img src="{% static '/web/images/star.png' %}" alt="star" class="h-[20px] mr-[10px]">
+                        <p class="text-[15px] sm:text-[18px] font-[600]">5.12</p>
+                    </li>
+                    <li class="flex mr-[15px] items-center">
+                        <img src="{% static '/web/images/clock.png' %}" alt="clock" class="h-[20px] mr-[10px]">
+                        <p class="text-[15px] sm:text-[18px] font-[600]">10.min</p>
+                    </li>
+                </ul>
+                <div class="flex">
+                    <img src="{% static '/web/images/discount.png' %}" alt="discount" class="h-[20px] mr-[3px]">
+                    <p class="text-[13px] sm:text-[18px] font-[600] text-red-600">4012</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="px-[15px]">
+        
+        <div class="max-w-[620px] m-auto">
+            {% for foodcategory in store.foodcategory_set.all %}
+            <h2 class="mb-[40px] text-[22px] font-[600]">{{foodcategory.name}}</h2>            
+            <ul>
+                {% for food,quantity in prod_with_qty %}
+                <li class="flex h-[150px] pb-[15px] border-b-[2px] w-[100%] mb-[30px]">
+                    <div class="h-[100%] w-[100%]">
+                        {% if food.is_veg %}
+                        <img src="{% static 'web/images/veg.png' %}" alt="non" class="h-[20px]">
+                        {% else %}
+                        <img src="{% static 'web/images/non.png' %}" alt="non" class="h-[20px]">
+                        {% endif %}
+                        <h2 class="text-[20px] font-[600]">{{food.name}}</h2>
+                        <span class="text-[20px] font-[600] block mb-2">₹ {{food.price}}</span>
+                        {% if quantity > 0 %}
+                        <div class="w-[15%] flex justify-between h-[30px] mr-[40px] items-center">
+                            <a href="{% url 'web:mines_cart' id=food.id %}" class="bg-[#2AC489] w-[33%] rounded-l-[5px] text-white text-center h-[100%]">-</a> 
+                            <span>{{quantity}}</span>             
+                            <a href="{% url 'web:plus_cart' id=food.id %}" class="bg-[#2AC489] w-[33%] rounded-r-[5px] text-white text-center h-[100%]">+</a>
+                        </div>
+                        {% else %}
+                        <a href="{% url 'web:add_cart' id=food.id %}" class="bg-[#45dd72] px-[12px] py-[6px] rounded-[5px] text-white font-[700] mt-[20px]">ADD</a>
+                        {% endif %}
+                    </div>
+                    <img src="{{food.image.url}}" alt="rest" class="h-[100%] rounded-[5px]">
+                </li> 
+                {% endfor %}  
+                {% endfor %}             
+            </ul>
+        </div>
+        <ul class="max-w-[640px] flex justify-between bg-[rgb(195,71,71)] m-auto h-[40px] items-center px-[15px] rounded-[5px] mb-[20px]">
+            <li class="text-white font-[500]">
+                {{cart_count}} Item | ₹ {{cart_amount}}
+            </li>
+            <li class="flex items-center h-[100%]">
+                <a href="{% url 'web:cart' %}" class="text-white font-[500]">View Cart</a>
+                <img src="{% static '/web/images/cart.png' %}" alt="cart" class="h-[50%]">
+            </li>
+        </ul>
+    </section>
+
+
+
+    <script src="{% static 'web/js/index.js' %}"></script>
+   {% endblock %}

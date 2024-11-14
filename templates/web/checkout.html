@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+
+  <div class="w-full max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
+
+    <!-- Header -->
+    <div class="flex items-center mb-4">
+      <button class="text-gray-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <h1 class="text-center flex-grow text-xl font-semibold text-gray-700">Checkout</h1>
+    </div>
+
+    <!-- Bill Details Section -->
+    <div class="bg-white rounded-lg shadow p-4 mb-6">
+      <h2 class="text-gray-700 font-semibold mb-2">BILL DETAILS</h2>
+      <div class="flex justify-between text-gray-600 mb-1">
+        <span>Item Total</span>
+        <span>₹ {{ cartbill.itemtotal }}</span>
+      </div>
+      <div class="flex justify-between text-gray-600 mb-1">
+        <span>Offer Applied</span>
+        <span>- ₹ {{ cartbill.offerapplied }}</span>
+      </div>
+      <div class="flex justify-between text-gray-600 mb-1">
+        <span>Delivery Charges (4KM)</span>
+        <span>₹ {{ cartbill.deliverycharges }}</span>
+      </div>
+      <hr class="my-2">
+      <div class="flex justify-between text-gray-800 font-semibold">
+        <span>To Pay</span>
+        <span>₹ {{ cartbill.final_amount }}</span>
+      </div>
+    </div>
+
+    <!-- Payment Method Section -->
+    <div class="bg-white rounded-lg shadow p-4 mb-6">
+      <h2 class="text-gray-700 font-semibold mb-2">PAYMENT METHOD</h2>
+      <div class="flex items-center mb-2">
+        <input type="radio" id="payment1" name="payment" class="mr-2">
+        <label for="payment1" class="text-gray-600">CREDIT / DEBIT / UPI</label>
+      </div>
+      <div class="flex items-center">
+        <input type="radio" id="payment2" name="payment" class="mr-2">
+        <label for="payment2" class="text-gray-600">COD</label>
+      </div>
+    </div>
+
+    <!-- Place Order Button -->
+    <button class="w-full bg-red-500 text-white font-semibold py-3 rounded-lg shadow hover:bg-red-600 transition duration-200">PLACE ORDER</button>
+  </div>
+
+</body>
+</html>

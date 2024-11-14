@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- Back Arrow and Title -->
+    <div class="p-4 bg-white shadow-md flex items-center">
+        <button class="text-gray-600 mr-2">
+            <!-- Back arrow icon -->
+            ←
+        </button>
+        <h1 class="text-lg font-semibold">Address</h1>
+    </div>
+
+    <!-- Address Form -->
+    <div class="max-w-lg mx-auto mt-8 p-6 bg-white shadow-md rounded-lg">
+        <!-- Placeholder Image -->
+        <div class="w-full h-32 bg-gray-300 rounded mb-6"></div>
+
+        <!-- Address Input Fields -->
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="space-y-4">
+                <!-- Address Field -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Address</label>
+                    <input id="address" name="address" type="text" placeholder="kuttippuram kerala india 676561" class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                </div>
+    
+                <!-- Apartment Field -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Apartment</label>
+                    <input id="apartment" name="apartment" type="text" placeholder="Apartment, suite, unit, etc." class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Name</label>
+                    <input id="name" name="name" type="text" placeholder="enter your name ." class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                </div>
+                <!-- Landmark Field -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Landmark</label>
+                    <input id="landmark" name="landmark" type="text" placeholder="Nearby landmark" class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">phone number</label>
+                    <input id="phone_number" name="phone_number" type="text" placeholder="phone number." class="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                </div>
+
+                
+                <div class="relative">
+                    <select name="address_type" id="address_type" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-700 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 appearance-none">
+                        <option value="home">Home</option>
+                        <option value="work">Work</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <span class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-500">
+                        ▼ <!-- Optional custom arrow icon -->
+                    </span>
+                </div>
+                
+            </div>
+            <div class="mt-6">
+                <button type="submit" class="w-full bg-red-500 text-white py-3 rounded font-semibold">Save Address</button>
+            </div>
+    
+        </form>
+        <!-- Label Buttons -->
+        
+        
+        <script>
+            function selectButton(type) {
+                // Reset all buttons to default state
+                document.getElementById('home-btn').classList.remove('bg-red-600', 'text-white');
+                document.getElementById('home-btn').classList.add('bg-gray-200', 'text-gray-600');
+                document.getElementById('work-btn').classList.remove('bg-red-600', 'text-white');
+                document.getElementById('work-btn').classList.add('bg-gray-200', 'text-gray-600');
+                document.getElementById('other-btn').classList.remove('bg-red-600', 'text-white');
+                document.getElementById('other-btn').classList.add('bg-gray-200', 'text-gray-600');
+                
+                // Set the selected button to active state
+                document.getElementById(type + '-btn').classList.remove('bg-gray-200', 'text-gray-600');
+                document.getElementById(type + '-btn').classList.add('bg-red-600', 'text-white');
+                
+                // Set the hidden input value to the selected type
+                document.getElementById('selected_address_type').value = type;
+            }
+            
+            // Automatically select the button based on the initial address type value when the page loads
+            window.onload = function() {
+                var initialType = document.getElementById('selected_address_type').value;
+                if (initialType) {
+                    selectButton(initialType);
+                }
+            }
+            
+            
+            </script>
+        
+
+        <!-- Save Address Button -->
+       
+    </div>
+</body>
+</html>

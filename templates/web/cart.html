@@ -1,0 +1,135 @@
+
+
+{% extends 'base/web-base.html' %}
+
+{% load static %}
+
+{% block container %}
+{% include 'includes/header.html' %}
+
+    <!-- Back Arrow and Title -->
+    <div class="p-4 bg-white shadow-md flex items-center">
+        <button class="text-gray-600 mr-2">
+            <!-- Back arrow icon (you can use an SVG or icon library) -->
+            ←
+        </button>
+        <h1 class="text-lg font-semibold">Cart</h1>
+    </div>
+    {% if store %}
+
+    <!-- Cart Content -->
+    <div class="max-w-lg mx-auto mt-6 p-4 bg-white shadow-md rounded-lg">
+        <!-- Restaurant Info -->
+        <section class="px-[15px]">
+            <div class="shadow-md offset-y-2 opacity-90 flex max-w-[620px] h-[150px] sm:h-[200px] p-[20px] border-[1px] rounded-[5px] m-auto mt-[30px] mb-[50px]">
+                <img src="{% static '/web/images/rest1.png' %}" alt="rest" class="h-[100%] rounded-[5px] mr-[15px]">
+                <div class="mt-[-8px]">
+                    <h1 class="text-[16px] sm:text-[22px] font-[600] mb-[5px]">{{store.name}}</h1>
+                    <h3 class="mb-[5px]">{{store.short_discription}}</h3>
+                    <ul class="flex mb-[5px]">
+                        <li class="flex mr-[15px] items-center">
+                            <img src="{% static '/web/images/star.png' %}" alt="star" class="h-[20px] mr-[10px]">
+                            <p class="text-[15px] sm:text-[18px] font-[600]">5.12</p>
+                        </li>
+                        <li class="flex mr-[15px] items-center">
+                            <img src="{% static '/web/images/clock.png' %}" alt="clock" class="h-[20px] mr-[10px]">
+                            <p class="text-[15px] sm:text-[18px] font-[600]">10.min</p>
+                        </li>
+                    </ul>
+                    <div class="flex">
+                        <img src="{% static '/web/images/discount.png' %}" alt="discount" class="h-[20px] mr-[3px]">
+                        <p class="text-[13px] sm:text-[18px] font-[600] text-red-600">4012</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Items in Cart -->
+        <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-4">Items in Cart</h3>
+            {% for item in cart_items %}
+            <div class="flex justify-between items-center mb-2">
+                <span>{{ item.product.name }}</span>
+                <span class="font-semibold">₹ {{ item.product.price }}</span>
+                <div class="flex items-center">
+                    <a href="{% url 'web:mines_cart' id=item.product.id %}" class="bg-green-500 text-white px-2 rounded-l">-</a>
+                    <span class="px-4">{{item.quantity}}</span>
+                    <a href="{% url 'web:plus_cart' id=item.product.id %}" class="bg-green-500 text-white px-2 rounded-r">+</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Coupon Code Section -->
+        <div class="mt-4">
+            <form method="post" class= " flex items-center justify-between">
+                {% csrf_token %}
+                <input type="text" name="code" placeholder="Coupon Code" class="w-2/3 p-2 border border-gray-300 rounded">
+                <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded ml-2">Apply</button>
+            </form>
+            <a href="#" class="text-red-500 text-sm mt-2 block">View All Offers</a>
+        </div>
+
+        <!-- Bill Details -->
+        <div class="mt-6 border-t border-gray-200 pt-4">
+            <h3 class="text-lg font-semibold mb-4">Bill Details</h3>
+            <div class="flex justify-between mb-2">
+                <span>Item Total</span>
+                <span class="font-semibold">{{cartbill.itemtotal}}</span>
+            </div>      
+            <div class="flex justify-between mb-2">
+                <span>Offer Applied</span>
+                <span class="font-semibold text-green-500">- ₹ {{ cartbill.offerapplied }}</span>
+            </div>
+            <div class="flex justify-between mb-2">
+                <span>deliverycharges</span>
+                <span class="font-semibold">₹ {{cartbill.deliverycharges}}</span>
+                
+            </div>
+            <div class="flex justify-between mt-4 text-lg font-bold">
+                <span>To Pay</span>
+                <span>₹ {{cartbill.itemtotal}}</span>
+            </div>
+        </div>
+
+        <!-- Delivery Info -->
+        <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-2">Deliver To</h3>
+            <div class="flex justify-between items-center bg-gray-100 p-3 rounded">
+                <span>{{address.appartement}} {{address.address}} {{address.name}} </span>
+                <a  href="{% url 'web:address' %}" class="text-blue-500 font-semibold">Change</a>
+            </div>
+        </div>
+
+        <!-- Continue Button -->
+        <div class="mt-6">
+            <a href="{% url 'web:checkout' %}" class="w-full bg-red-500 text-white py-3 rounded font-semibold inline-block text-center">Continue</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+        <!-- Empty Cart Icon -->
+        <div class="w-24 h-24 mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-gray-400 w-full h-full">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75L5.625 4.125 6.75 6.75h10.5l1.125-2.625L20.25 3.75M7.5 6.75L8.625 12m0 0L7.5 16.5m1.125-4.5h7.5m0 0L16.5 6.75M8.625 12H5.625M8.625 12l1.125 4.5m5.25-4.5L18 6.75m0 0L19.125 12M9.75 19.5a1.5 1.5 0 103 0m-3 0h3m6.75 0a1.5 1.5 0 103 0m-3 0h3" />
+            </svg>
+        </div>
+    
+        <!-- Empty Cart Message -->
+        <h2 class="text-2xl font-semibold text-gray-700 mb-2">Your Cart is Empty</h2>
+        <p class="text-gray-500 mb-6 text-center px-8">
+            Looks like you haven’t added anything to your cart yet. Start exploring our menu and add some items!
+        </p>
+    
+        <!-- Browse Button -->
+        <a href="{% url 'web:index' %}" class="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition">
+            Browse Menu   
+        </a>
+    </div>
+    
+    {% endif %}
+
+
+
+{% endblock %}  
+

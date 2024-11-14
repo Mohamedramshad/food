@@ -1,0 +1,109 @@
+
+{% extends 'base/web-base.html' %}
+
+{% load static %}
+
+{% block container %}
+{% include 'includes/header.html' %}
+
+    <section class="py-10 wrapper">
+        <section class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                {% for slider in sliders %}
+                
+                <div class="swiper-slide">
+                    <img src="{{slider.image.url}}" alt="image" class="w-full rounded-2xl">
+                </div>
+                {% endfor %}
+                
+            </div>
+            
+        </section>
+    </section>
+
+    <section>
+        <section class="wrapper">
+            <h1 class="text-[24px] font-semibold mb-5 mt-[14px]">
+                what is on your mind?
+            </h1>
+            <div class="flex justify-start overflow-scroll smooth-scroll items-center">
+                {% for category in store_categories %}
+                <a href="{% url 'web:restaurants' id=category.id %}" class="min-w-[25%] max-w-[25%] sm:min-w-[25%] sm:max-w-[25%] md:min-w-[15%] md:max-w-[15%]">
+                    <img src="{{category.image.url}}" alt="image">
+                    <h3 class="text-center">{{category.name}}</h3>
+                </a>
+                {% endfor %}
+                
+            </div>
+        </section>
+    </section>
+
+    <section class="py-10">
+        <section class="wrapper">
+            <h1 class="text-[24px] font-semibold mb-5 "></h1>
+                Top resturant!
+            </h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7">
+            {% for store in stores %}
+            <div class="col-span-1 p-4 rounded-lg border ">
+               <a href="{% url 'web:singlerestaurant' id=store.id %}" class="flex justify-start"> 
+                    <img src="{{store.image.url}}" alt=" " class="w-[35%] rounded-xl mr-4">
+                    <div class="w-[65%]">
+                        <h3 class="text-[16px] font-semibold mb-1">{{store.name}}</h3>
+                        <p class="text-[12px] mb-4">{{store.short_discription}}</p>
+                        <div class="justify-start flex items-center">
+                            <span class="flex justify-start items-center mr-4">
+                                <img src="{% static 'web/images/star.png' %}" alt="" class="w-[16px] mr-2">
+                                {{store.rating}}
+                            </span>
+                            <span class="flex justify-start items-center "></span>
+                                <img src="{% static 'web/images/clock.png' %}" alt="" class="w-[16px] mr-2">
+                            {{store.time}} min
+                            </span>
+                        </div>
+                    </div>
+                </a> 
+            </div>
+            {% endfor %}
+        </div>
+
+        </section>
+
+    </section>
+
+    <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+       breakpoints: {
+            // when window width is <= 499px
+            499: {
+                slidesPerView: 1,
+                spaceBetweenSlides: 30
+            },
+            // when window width is <= 999px
+            999: {
+                slidesPerView: 3,
+                spaceBetweenSlides: 40
+            }},
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>
+
+{% endblock %}  
+    
